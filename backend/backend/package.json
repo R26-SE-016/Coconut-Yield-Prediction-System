@@ -1,0 +1,20 @@
+{
+  "name": "coconut-yield-backend",
+  "version": "1.0.0",
+  "description": "Node.js Express API backend for Coconut Yield Prediction ML model",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "axios": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "node-cron": "^4.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "private": true
+}
