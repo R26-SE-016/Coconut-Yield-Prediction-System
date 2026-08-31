@@ -361,6 +361,8 @@ app.get('/api/history', (req, res) => {
 // GET /api/cda-rates
 app.get('/api/cda-rates', (req, res) => {
   try {
+    const district = req.query.district ? req.query.district.trim().charAt(0).toUpperCase() + req.query.district.trim().slice(1).toLowerCase() : null;
+    
     if (!fs.existsSync(CDA_RATES_FILE)) {
       return res.json({
         success: true,
@@ -372,12 +374,34 @@ app.get('/api/cda-rates', (req, res) => {
     }
     const fileData = fs.readFileSync(CDA_RATES_FILE, 'utf8');
     const rawData = JSON.parse(fileData);
+    
+    let baseMin = 95;
+    let baseMax = 155;
+    let priceType = "Default Simulated";
+    
+    if (district && rawData.farm_gate_per_nut && rawData.farm_gate_per_nut[district]) {
+        baseMin = rawData.farm_gate_per_nut[district].min;
+        baseMax = rawData.farm_gate_per_nut[district].max;
+        priceType = `District Farm Gate (${district})`;
+    } else if (rawData.national_average_per_nut && rawData.national_average_per_nut > 0) {
+        const natAvg = rawData.national_average_per_nut;
+        baseMin = natAvg - 10;
+        baseMax = natAvg + 10;
+        priceType = "National Average";
+    } else if (rawData.a_grade_price) {
+        baseMax = rawData.a_grade_price;
+        baseMin = rawData.c_grade_price;
+    }
+    
     res.json({
       success: true,
-      a_grade_price: rawData.a_grade_price ?? 155,
-      b_grade_price: rawData.b_grade_price ?? 120,
-      c_grade_price: rawData.c_grade_price ?? 95,
-      last_updated: rawData.last_updated ?? "2026-08-20"
+      price_type: priceType,
+      requested_district: district,
+      a_grade_price: baseMax,
+      b_grade_price: Math.round((baseMax + baseMin) / 2),
+      c_grade_price: baseMin,
+      last_updated: rawData.last_updated ?? "2026-08-20",
+      full_data: rawData
     });
   } catch (err) {
     res.json({
@@ -446,6 +470,10 @@ cron.schedule('0 0 * * *', () => {
 });
 
 // Start Server
-app.listen(PORT, () => {
-  console.log(`Node.js Coconut Yield API backend running at http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Node.js Coconut Yield API backend running at http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;

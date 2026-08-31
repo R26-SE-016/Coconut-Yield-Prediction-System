@@ -59,3 +59,4 @@ backend/Coconut_Yield_Prediction/processed/
 backend/Coconut_Yield_Prediction/outputs/
 backend/resources/
 backend/models/
+serviceAccountKey.json

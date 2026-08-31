@@ -10,6 +10,8 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all domains
+from yield_crud_api import yield_crud_bp
+app.register_blueprint(yield_crud_bp)
 
 # Set up paths
 BASE_DIR = Path(__file__).resolve().parent
@@ -220,42 +222,59 @@ def predict():
         base_confidence = round(85.0 + (np.random.random() * 5), 1)
         dynamic_confidence = round(min(98.0, base_confidence + (len(past_logs) * 2)), 1)
         
-        # If the request contains soil nutrients, run the leaf pipeline as well
-        leaf_n = leaf_p = leaf_k = penalty_percent = 0.0
-        recommendations = []
+        # Apply user-defined Tree-Level Calibration (Biological & Soil Factors)
+        base_45_days = next_pick_45_days
+        base_annual = annual_yield
         
-        if soil_leaf_model is not None and "soil_n" in input_data and "soil_p" in input_data and "soil_k" in input_data:
-            epsilon = 1e-6
-            soil_n = float(input_data["soil_n"])
-            soil_p = float(input_data["soil_p"])
-            soil_k = float(input_data["soil_k"])
-            
-            np_ratio = soil_n / (soil_p + epsilon)
-            nk_ratio = soil_n / (soil_k + epsilon)
-            pk_ratio = soil_p / (soil_k + epsilon)
-            npk_sum = soil_n + soil_p + soil_k
-            
-            X_nutrient = pd.DataFrame([{
-                'soil_n': soil_n, 'soil_p': soil_p, 'soil_k': soil_k,
-                'np_ratio': np_ratio, 'nk_ratio': nk_ratio, 'pk_ratio': pk_ratio, 'npk_sum': npk_sum
-            }])
-            
-            leaf_preds = soil_leaf_model.predict(X_nutrient)[0]
-            leaf_n, leaf_p, leaf_k = float(leaf_preds[0]), float(leaf_preds[1]), float(leaf_preds[2])
-            
-            # Simplified penalty logic based on deficiency
-            deficiency_n = max(0, 2.0 - leaf_n)
-            deficiency_p = max(0, 0.15 - leaf_p)
-            deficiency_k = max(0, 1.5 - leaf_k)
-            
-            penalty_percent = min(100.0, (deficiency_n * 10) + (deficiency_p * 100) + (deficiency_k * 10))
-            next_pick_45_days = int(next_pick_45_days * (1 - (penalty_percent / 100)))
-            annual_yield = int(annual_yield * (1 - (penalty_percent / 100)))
-            
-            if deficiency_n > 0.2: recommendations.append("Apply Nitrogen rich fertilizer (e.g., Urea).")
-            if deficiency_p > 0.05: recommendations.append("Apply Phosphorus rich fertilizer.")
-            if deficiency_k > 0.2: recommendations.append("Apply Muriate of Potash.")
-            if not recommendations: recommendations.append("Nutrient levels are optimal.")
+        # 1. Soil NPK Index (CRI Standards: Liebig's Law)
+        soil_n = float(input_data.get("soil_n", 25))
+        soil_p = float(input_data.get("soil_p", 10))
+        soil_k = float(input_data.get("soil_k", 30))
+        
+        ratio_n = min(1.0, soil_n / 25.0)
+        ratio_p = min(1.0, soil_p / 10.0)
+        ratio_k = min(1.0, soil_k / 30.0)
+        soil_npk_index = min(ratio_n, ratio_p, ratio_k)
+        
+        # 2. Biological Factors (Bio Modifier)
+        variety = input_data.get("variety", "Tall").lower()
+        if "hybrid" in variety or "cric65" in variety: variety_mult = 1.20
+        elif "dwarf" in variety: variety_mult = 0.85
+        else: variety_mult = 1.00
+        
+        age_range = input_data.get("ageRange", "15-30")
+        if age_range in ["46-60", "50+"] and age_range != "50+": age_mult = 0.85
+        elif age_range == "50+" or age_range == ">60": age_mult = 0.65
+        else: age_mult = 1.00
+        
+        fronds = float(input_data.get("fronds", 32))
+        fronds_mult = min(1.0, max(0.0, fronds / 32.0))
+        
+        bio_modifier = variety_mult * age_mult * fronds_mult
+        
+        # 3. Environmental Gating
+        soil_ph = float(input_data.get("soil_ph", 6.5))
+        ph_mult = 0.85 if (soil_ph < 5.0 or soil_ph > 8.0) else 1.00
+        
+        soil_moisture = float(input_data.get("soil_moisture", 50))
+        moisture_mult = 0.85 if soil_moisture < 15.0 else 1.00
+        
+        gating_factor = ph_mult * moisture_mult
+        
+        # 4. Final Calculation
+        total_multiplier = bio_modifier * soil_npk_index * gating_factor
+        
+        next_pick_45_days = int(base_45_days * total_multiplier)
+        annual_yield = int(base_annual * total_multiplier)
+        penalty_percent = min(100.0, max(0.0, (1.0 - total_multiplier) * 100))
+        
+        recommendations = []
+        if ratio_n < 0.9: recommendations.append("Apply Nitrogen rich fertilizer.")
+        if ratio_p < 0.9: recommendations.append("Apply Phosphorus rich fertilizer.")
+        if ratio_k < 0.9: recommendations.append("Apply Muriate of Potash.")
+        if ph_mult < 1.0: recommendations.append("Adjust soil pH.")
+        if moisture_mult < 1.0: recommendations.append("Increase irrigation.")
+        if not recommendations: recommendations.append("Growing conditions are optimal.")
 
         return jsonify({
             "success": True,
@@ -272,11 +291,7 @@ def predict():
             "predicted_annual_yield_nuts": annual_yield,          # Estimated yearly total
             "confidence_percentage": dynamic_confidence,
             "penalty_percent": round(penalty_percent, 2),
-            "estimated_leaf_nutrients": {
-                "leaf_n": round(leaf_n, 3),
-                "leaf_p": round(leaf_p, 3),
-                "leaf_k": round(leaf_k, 3)
-            } if recommendations else None,
+            "estimated_leaf_nutrients": None,
             "recommendations": recommendations if recommendations else None
         })
         
@@ -290,3 +305,4 @@ def predict():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=True)
+

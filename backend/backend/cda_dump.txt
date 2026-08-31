@@ -57,7 +57,7 @@ Local Market
 
 
 
-HomeInformation & StatisticsAuction Details & PricesExport DataLocal MarketWorld MarketPublicationsHS Codes/ Cess RatesRegistration2026 Registration (Exporters, Auctioneer Brokers, Dealers & Estates)Payment access through GovPay Platform2026 Manufacturer RegistrationExporter Registration (Online)Export ProceduresGuidelines for DC Exporters (Sinhala & English)Payment Details of CDANotice to Manufacturers & Importers (importing coconut-based products)2025 Registered Exporters2026 Registered Manufacture ListAnnouncementsCDA FRESH COCONUT AUCTION GUIDELINESGuidelines for Return Consignments of Coconut based productsGuideline for all DC Manufacturers & Exporters (w.e.f.1st April 2023)Employment opportunities in CDAAdvertisementsQuotations / TendersSeminars, Training & AwarenessAchievementsISO 17020:2012 PoliciesCDA Certified LOGOContact UsContact FormContact DetailsShipment-Wise ApprovalsCoconut Milk Powder (CMP)User Guide Line - CMPDiscussion on the requirement of machinery and equipment related to the coconut industry
+HomeInformation & StatisticsAuction Details & PricesExport DataLocal MarketWorld MarketPublicationsHS Codes/ Cess RatesRegistration2026 Registration (Exporters, Auctioneer Brokers, Dealers & Estates)Payment access through GovPay Platform2026 Manufacturer RegistrationExporter Registration (Online)Export ProceduresGuidelines for DC Exporters (Sinhala & English)Payment Details of CDANotice to Manufacturers & Importers (importing coconut-based products)2025 Registered Exporters2026 Registered Manufacture ListAnnouncementsCDA FRESH COCONUT AUCTION GUIDELINESGuidelines for Return Consignments of Coconut based productsGuideline for all DC Manufacturers & Exporters (w.e.f.1st April 2023)Employment opportunities in CDAAdvertisementsQuotations / TendersSeminars, Training & AwarenessAchievementsISO 17020:2012 PoliciesCDA Certified LOGOContact UsContact FormContact DetailsShipment-Wise ApprovalsCoconut Milk Powder (CMP)User Guide Line - CMP
 
 
 
@@ -130,7 +130,7 @@ DownloadsFAQ'sSitemap
 
 
 
-HomeInformation & StatisticsAuction Details & PricesExport DataLocal MarketWorld MarketPublicationsHS Codes/ Cess RatesRegistration2026 Registration (Exporters, Auctioneer Brokers, Dealers & Estates)Payment access through GovPay Platform2026 Manufacturer RegistrationExporter Registration (Online)Export ProceduresGuidelines for DC Exporters (Sinhala & English)Payment Details of CDANotice to Manufacturers & Importers (importing coconut-based products)2025 Registered Exporters2026 Registered Manufacture ListAnnouncementsCDA FRESH COCONUT AUCTION GUIDELINESGuidelines for Return Consignments of Coconut based productsGuideline for all DC Manufacturers & Exporters (w.e.f.1st April 2023)Employment opportunities in CDAAdvertisementsQuotations / TendersSeminars, Training & AwarenessAchievementsISO 17020:2012 PoliciesCDA Certified LOGOContact UsContact FormContact DetailsShipment-Wise ApprovalsCoconut Milk Powder (CMP)User Guide Line - CMPDiscussion on the requirement of machinery and equipment related to the coconut industry
+HomeInformation & StatisticsAuction Details & PricesExport DataLocal MarketWorld MarketPublicationsHS Codes/ Cess RatesRegistration2026 Registration (Exporters, Auctioneer Brokers, Dealers & Estates)Payment access through GovPay Platform2026 Manufacturer RegistrationExporter Registration (Online)Export ProceduresGuidelines for DC Exporters (Sinhala & English)Payment Details of CDANotice to Manufacturers & Importers (importing coconut-based products)2025 Registered Exporters2026 Registered Manufacture ListAnnouncementsCDA FRESH COCONUT AUCTION GUIDELINESGuidelines for Return Consignments of Coconut based productsGuideline for all DC Manufacturers & Exporters (w.e.f.1st April 2023)Employment opportunities in CDAAdvertisementsQuotations / TendersSeminars, Training & AwarenessAchievementsISO 17020:2012 PoliciesCDA Certified LOGOContact UsContact FormContact DetailsShipment-Wise ApprovalsCoconut Milk Powder (CMP)User Guide Line - CMP
 
 
 
@@ -196,7 +196,7 @@ Daily Price Bulletin
 
 
 Coconut Products
-Prices on 10.08.2026
+Prices on 28.08.2026
 
 
 Fresh Coconut
@@ -207,19 +207,19 @@ Fresh Coconut
  
 
 
-a) Market Prices (10 - 16 Jul 2026,  Source - HARTI) - 
+a) Market Prices (24 - 30 Jul 2026,  Source - HARTI) - 
 Wholesale (Rs./Nut)
-140.00 - 150.00 
+155.00 - 170.00 
 L
-120.00 - 130.00
+135.00 - 150.00
 S
 
 
  
 Retail  (Rs./Nut)
-160.00 - 200.00 
+160.00 - 190.00 
 L
-130.00 - 160.00 
+140.00 - 150.00 
 S
 
 
@@ -227,15 +227,15 @@ b) Farm-Gate Price (Locally Traded)  Rs./1000 Nuts - (With Husk)
 Kurunegala
 100,000
 -
-110,000
+105,000
  
 
 
  
 Puttalam
-105,000
+100,000
 -
-110,000
+120,000
  
 
 
@@ -243,39 +243,39 @@ Puttalam
 Gampaha
 100,000
 -
-110,000
+115,000
  
 
 
  
 Hambanthota
-105,000
+100,000
 -
-120,000
+110,000
  
 
 
 Desiccated Coconut (Rs.Per/ Kg) (Domestic)
 Fine
- 720.00
+ 680.00
 - 
-780.00 
+750.00 
 N
 
 
  
 Medium
- 800.00
+ 850.00
  -
-850.00 
+860.00 
 N
 
 
 Coconut Oil (Rs.Per/ MT)
 Local Price (Wholesale)
-750,000.00
+800,000.00
 -
-850,000.00
+900,000.00
 N
 
 
@@ -288,36 +288,36 @@ White Coconut Oil
 
 
                Philippines CIF - Rott: (Oil World)   (RS./MT)            
- (07/08/2026)        
-656,257
+ (21/08/2026)        
+643,217
  
 
 
 Copra (Rs./250 Kg)
-118,750
+120,000
  -
 125,000
  
 
 
 Poonac (Rs/ MT)
- 80,000
+ 70,000
  -
-80,000
+95,000
 T
 
 
-Coconut Shell    (Rs/MT)  (24 - 30 Jul 2026)
- 
- 
-87,000 
+Coconut Shell    (Rs/MT)  (21 - 27 Aug 2026)
+90,000 
+ -
+92,000 
 T
 
 
-Coconut Shell Charcoal (Moisture 12%, Dust 3%) (Rs./MT) (24 - 30 Jul 2026)
+Coconut Shell Charcoal (Moisture 12%, Dust 3%) (Rs./MT) (21 - 27 Aug 2026)
  
  
-308,000 
+320,000 
 T
 
 
@@ -325,7 +325,7 @@ T
 
 
 
-T - Traded      N - Nominal             S - Small       L - Large         (Exchange Rate 1 US$ = Rs. 340.0296)
+T - Traded      N - Nominal             S - Small       L - Large         (Exchange Rate 1 US$ = Rs. 335.0074)
  
 
 
@@ -346,6 +346,26 @@ Aug 07
 Aug 10
 Aug 11
 Aug 12 
+
+
+Aug 13
+Aug 14
+Aug 17
+Aug 18
+Aug 19
+Aug 20
+Aug 21 
+Aug 24
+
+
+Aug 25
+
+
+
+
+
+
+
 
 
  
@@ -913,7 +933,7 @@ Right to Information Act
 
 
 
-Last modified: 12 August 2026.
+Last modified: 28 August 2026.
 
 
 

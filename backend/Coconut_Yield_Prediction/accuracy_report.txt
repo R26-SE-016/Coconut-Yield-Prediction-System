@@ -1,0 +1,7 @@
+ML MODEL ACCURACY REPORT
+========================
+Total Samples : 608
+MAE           : 1.004
+RMSE          : 3.092
+R-Squared     : 0.491
+Error %       : 13.48%
