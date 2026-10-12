@@ -22,12 +22,9 @@ PROCESSED_DIR = BASE_DIR / "processed"
 model_path = MODELS_DIR / "best_model.joblib"
 scaler_path = MODELS_DIR / "scaler.joblib"
 features_path = PROCESSED_DIR / "master_features.csv"
-soil_leaf_model_path = MODELS_DIR / "soil_leaf_model.joblib"
-
 best_model = None
 scaler = None
 df_features = None
-soil_leaf_model = None
 
 if model_path.exists() and scaler_path.exists() and features_path.exists():
     best_model = joblib.load(model_path)
@@ -35,11 +32,6 @@ if model_path.exists() and scaler_path.exists() and features_path.exists():
     df_features = pd.read_csv(features_path)
 else:
     print("Warning: Model files or master features are missing. Run training notebooks first.")
-
-if soil_leaf_model_path.exists():
-    soil_leaf_model = joblib.load(soil_leaf_model_path)
-else:
-    print("Warning: Soil-to-Leaf model is missing. Run Notebook 14 first.")
 
 
 def get_nearest_estate(user_location):
@@ -226,17 +218,7 @@ def predict():
         base_45_days = next_pick_45_days
         base_annual = annual_yield
         
-        # 1. Soil NPK Index (CRI Standards: Liebig's Law)
-        soil_n = float(input_data.get("soil_n", 25))
-        soil_p = float(input_data.get("soil_p", 10))
-        soil_k = float(input_data.get("soil_k", 30))
-        
-        ratio_n = min(1.0, soil_n / 25.0)
-        ratio_p = min(1.0, soil_p / 10.0)
-        ratio_k = min(1.0, soil_k / 30.0)
-        soil_npk_index = min(ratio_n, ratio_p, ratio_k)
-        
-        # 2. Biological Factors (Bio Modifier)
+        # 1. Biological Factors (Bio Modifier)
         variety = input_data.get("variety", "Tall").lower()
         if "hybrid" in variety or "cric65" in variety: variety_mult = 1.20
         elif "dwarf" in variety: variety_mult = 0.85
@@ -261,21 +243,21 @@ def predict():
         
         gating_factor = ph_mult * moisture_mult
         
-        # 4. Final Calculation
-        total_multiplier = bio_modifier * soil_npk_index * gating_factor
+        # 3. Final Calculation
+        total_multiplier = bio_modifier * gating_factor
         
         next_pick_45_days = int(base_45_days * total_multiplier)
         annual_yield = int(base_annual * total_multiplier)
         penalty_percent = min(100.0, max(0.0, (1.0 - total_multiplier) * 100))
         
         recommendations = []
-        if ratio_n < 0.9: recommendations.append("Apply Nitrogen rich fertilizer.")
-        if ratio_p < 0.9: recommendations.append("Apply Phosphorus rich fertilizer.")
-        if ratio_k < 0.9: recommendations.append("Apply Muriate of Potash.")
         if ph_mult < 1.0: recommendations.append("Adjust soil pH.")
         if moisture_mult < 1.0: recommendations.append("Increase irrigation.")
         if not recommendations: recommendations.append("Growing conditions are optimal.")
 
+        # Calculate per-tree yield by dividing total by trees_count
+        next_pick_45_days_per_tree = round(next_pick_45_days / trees_count, 2) if trees_count > 0 else 0
+        
         return jsonify({
             "success": True,
             "district": raw_location,
@@ -287,7 +269,8 @@ def predict():
             "calibration_applied": calibration_factor != 1.0,
             "calibration_factor": round(calibration_factor, 2),
             "predicted_monthly_yield": round(final_monthly_yield, 1),
-            "predicted_next_pick_yield_nuts": next_pick_45_days,  # Personalized 45-day harvest yield
+            "predicted_per_tree_45_days_yield": next_pick_45_days_per_tree, # Per-tree yield
+            "predicted_next_pick_yield_nuts": next_pick_45_days,  # Farm total yield
             "predicted_annual_yield_nuts": annual_yield,          # Estimated yearly total
             "confidence_percentage": dynamic_confidence,
             "penalty_percent": round(penalty_percent, 2),
