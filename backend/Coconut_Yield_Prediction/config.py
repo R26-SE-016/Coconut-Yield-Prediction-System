@@ -10,7 +10,7 @@ PROCESSED_DIR = BASE_DIR / "processed"
 MODELS_DIR = BASE_DIR / "models"
 OUTPUTS_DIR = BASE_DIR / "outputs"
 FIGURES_DIR = BASE_DIR / "figures"
-RESOURCES_DIR = Path("d:/A1/coco/resources")
+RESOURCES_DIR = BASE_DIR.parent / "resources"
 
 # Sri Lankan Coconut-Growing Estates and coordinates (Centroids)
 ESTATES = {
@@ -23,6 +23,8 @@ ESTATES = {
     "Henwalawwa": {"lat": 7.2514, "lon": 80.2812, "zone": "Intermediate"},
     "Jawatta": {"lat": 7.0911, "lon": 79.9723, "zone": "Wet"},
 }
+
+DISTRICTS = ESTATES
 
 # NASA POWER API settings
 NASA_POWER_URL = "https://power.larc.nasa.gov/api/temporal/monthly/point"

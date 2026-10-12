@@ -1,28 +1,28 @@
 {
-  "last_updated": "2026-08-25",
+  "last_updated": "2026-10-06",
   "fresh_coconut": {},
   "farm_gate_per_nut": {
     "Kurunegala": {
-      "min": 100.0,
-      "max": 110.0
+      "min": 120.0,
+      "max": 130.0
     },
     "Puttalam": {
-      "min": 100.0,
-      "max": 115.0
+      "min": 125.0,
+      "max": 130.0
     },
     "Gampaha": {
-      "min": 100.0,
-      "max": 110.0
+      "min": 110.0,
+      "max": 120.0
     },
     "Hambanthota": {
-      "min": 100.0,
-      "max": 110.0
+      "min": 110.0,
+      "max": 125.0
     }
   },
   "national_average_per_nut": 116.7,
   "coconut_oil_wholesale_per_mt": {
-    "min": 800000.0,
-    "max": 875000.0
+    "min": 850000.0,
+    "max": 900000.0
   },
   "status": "live"
 }
