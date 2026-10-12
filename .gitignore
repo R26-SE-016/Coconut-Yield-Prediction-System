@@ -49,14 +49,21 @@ ehthumbs.db
 Thumbs.db
 
 # Models and Datasets
-*.joblib
-*.pkl
 *.keras
 *.h5
-backend/Coconut_Yield_Prediction/models/
 backend/Coconut_Yield_Prediction/raw/
-backend/Coconut_Yield_Prediction/processed/
 backend/Coconut_Yield_Prediction/outputs/
 backend/resources/
 backend/models/
+
+# Exclude heavy training splits, but keep master_features needed for inference
+backend/Coconut_Yield_Prediction/processed/*
+!backend/Coconut_Yield_Prediction/processed/master_features.csv
+
+# Keep models needed for inference
+!backend/Coconut_Yield_Prediction/models/best_model.joblib
+!backend/Coconut_Yield_Prediction/models/scaler.joblib
+!backend/Coconut_Yield_Prediction/models/best_model_tuned.joblib
+!backend/Coconut_Yield_Prediction/models/best_rf_model.pkl
 serviceAccountKey.json
+

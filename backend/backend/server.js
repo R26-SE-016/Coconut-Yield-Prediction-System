@@ -26,7 +26,8 @@ app.use((err, req, res, next) => {
 // Paths configuration
 const PROJECT_ROOT = path.join(__dirname, '../Coconut_Yield_Prediction');
 const MASTER_FEATURES_PATH = path.join(PROJECT_ROOT, 'processed/master_features.csv');
-const PYTHON_EXEC = path.join(PROJECT_ROOT, '.venv/Scripts/python.exe');
+const PYTHON_EXEC = process.env.PYTHON_EXEC || (process.platform === 'win32' && fs.existsSync(path.join(PROJECT_ROOT, '.venv/Scripts/python.exe')) ? path.join(PROJECT_ROOT, '.venv/Scripts/python.exe') : 'python3');
+const ML_SERVICE_URL = process.env.ML_SERVICE_URL || 'http://127.0.0.1:5001';
 const CDA_SCRAPER_PATH = path.join(__dirname, 'cda_scraper.py');
 const CDA_RATES_FILE = path.join(__dirname, 'cda_rates.json');
 
@@ -440,13 +441,14 @@ app.post('/api/predict', async (req, res) => {
     }
 
     const pythonPayload = {
+      ...farm,
       estate: farm.estate || farm.district || "Makandura",
       trees_count: farm.total_trees || farm.trees_count || 40,
       last_harvest_yield: farm.last_harvest_yield || null,
       actual_harvest_logs: farm.actual_harvest_logs || []
     };
 
-    const response = await axios.post('http://127.0.0.1:5001/predict', pythonPayload);
+    const response = await axios.post(`${ML_SERVICE_URL}/predict`, pythonPayload);
     res.json(response.data);
   } catch (err) {
     console.error("Python API Error:", err.message);
