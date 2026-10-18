@@ -71,6 +71,15 @@ def get_nearest_estate(user_location):
         return 'Saliya'
 
 
+@app.route('/', methods=['GET'])
+def health():
+    return jsonify({
+        "status": "online",
+        "service": "Coconut Yield Prediction ML API",
+        "models_loaded": best_model is not None and scaler is not None
+    })
+
+
 @app.route('/predict', methods=['POST'])
 def predict():
     if best_model is None or scaler is None or df_features is None:
