@@ -23,6 +23,21 @@ app.use((err, req, res, next) => {
   next();
 });
 
+// Root Health & Welcome Endpoint
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: "Coconut Yield Prediction API Backend is Live & Running!",
+    version: "1.0.0",
+    docs: {
+      estates: "/api/estates",
+      cda_rates: "/api/cda-rates",
+      history: "/api/history",
+      predict: "POST /api/predict"
+    }
+  });
+});
+
 // Paths configuration
 const PROJECT_ROOT = path.join(__dirname, '../Coconut_Yield_Prediction');
 const MASTER_FEATURES_PATH = path.join(PROJECT_ROOT, 'processed/master_features.csv');
